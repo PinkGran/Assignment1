@@ -48,7 +48,7 @@ int main()
         while (c_pay < price)
         {
             scanf("%f", &coin);
-            if (coin != 1 || coin != 0.5 || coin != 0.25)
+            if (coin > 1 || coin < 0.25)
             {
                 printf("Please pay for the item using 1, 0.5, 0.25 Dhirham coins only\n");
             }
