@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #define Min 2
 // cant go back to 1.a
-// how to do due change
 int replenish_item();
 float change_prices(float a);
 int display_total_sale(float z);
@@ -37,8 +36,8 @@ int main()
             if (pass != admin_password)
             {
                 printf("Incorrect admin password. Exiting Admin Mode.\n");
-                prog1 = false;
-                // how to exit admin mode and go to main menu?
+                // prog1 = false;
+                //  how to exit admin mode and go to main menu?
             }
             else
             {
@@ -69,6 +68,7 @@ int main()
                     }
                     case 2: // change prices of the items
                     {
+                        printf("\n");
                         printf("Enter the new price for item A: \n");
                         scanf("%f", &ap);
                         printf("Enter the new price for item B: \n");
@@ -83,6 +83,7 @@ int main()
                     }
                     case 3: // Print out the total sale amount
                     {
+                        printf("\n");
                         int answer3;
                         answer3 = display_total_sale(total_amount);
                         if (answer3 == 0)
@@ -111,6 +112,7 @@ int main()
             ////////////////////////////////////////////////////////////////////////////////////////////////////
         case 1:
         {
+            printf("\n");
             printf("Consumer\n");
             // prog1 = false;
             bool prog2 = true;
@@ -161,7 +163,7 @@ int main()
                     }
                     } // end of switch(sel)
 
-                    if (answer1 == 'y' || answer1 == 'Y')
+                    if (answer1 == 'y' || answer1 == 'Y') // here loops back to consumer mode
                     {
                         printf("Confirmed\n");
                         if (sel == 1) // for item A
@@ -178,13 +180,17 @@ int main()
                                     }
                                     else
                                     {
-                                        printf("Invalid. Do you want to cancel the purchase? (y/n): ");
+                                        printf("Invalid. Do you want to cancel the purchase? (y/n): "); // for option no put sumthn
                                         scanf(" %c", &cancel);
                                         if (cancel == 'y' || cancel == 'Y')
                                         {
                                             printf("Purchase canceled\n");
-                                            prog2 = false;
+                                            // prog2 = false;
                                             break;
+                                        }
+                                        else if (cancel == 'n' || cancel == 'N')
+                                        {
+                                            printf("Please pay for the item using 1, 0.5, 0.25 Dirham coins:\n");
                                         }
                                     }
                                 }
@@ -193,13 +199,15 @@ int main()
                                 {
                                     total_amount += A_p;
                                     A_n--;
-                                    printf("You bought item A for %.2f AED\n", A_p);
+                                    float change;
+                                    change = customer_pay - A_p;
+                                    printf("You bought item A for %.2f AED and you paid: %0.2f. Change due: %0.2f \n", A_p, customer_pay, change);
                                     if (A_n <= Min)
                                     {
                                         printf("ALERT: Item A is in low stock!\n");
                                     }
                                 }
-                                break;
+                                // break;
                             }
                             else
                             {
@@ -226,8 +234,12 @@ int main()
                                         if (cancel == 'y' || cancel == 'Y')
                                         {
                                             printf("Purchase canceled\n");
-                                            prog2 = false;
+                                            // prog2 = false;
                                             break;
+                                        }
+                                        else if (cancel == 'n' || cancel == 'N')
+                                        {
+                                            printf("Please pay for the item using 1, 0.5, 0.25 Dirham coins:\n");
                                         }
                                     }
                                 }
@@ -236,13 +248,15 @@ int main()
                                 {
                                     total_amount += B_p;
                                     B_n--;
-                                    printf("You bought item B for %.2f AED\n", B_p);
+                                    float change;
+                                    change = customer_pay - B_p;
+                                    printf("You bought item A for %.2f AED and you paid: %0.2f. Change due: %0.2f \n", B_p, customer_pay, change);
                                     if (B_n <= Min)
                                     {
                                         printf("ALERT: Item B is in low stock!\n");
                                     }
                                 }
-                                break;
+                                // break;
                             }
                             else
                             {
@@ -268,8 +282,12 @@ int main()
                                         if (cancel == 'y' || cancel == 'Y')
                                         {
                                             printf("Purchase canceled\n");
-                                            prog2 = false;
+                                            // prog2 = false;
                                             break;
+                                        }
+                                        else if (cancel == 'n' || cancel == 'N')
+                                        {
+                                            printf("Please pay for the item using 1, 0.5, 0.25 Dirham coins:\n");
                                         }
                                     }
                                 }
@@ -278,13 +296,15 @@ int main()
                                 {
                                     total_amount += C_p;
                                     C_n--;
-                                    printf("You bought item C for %.2f AED\n", C_p);
+                                    float change;
+                                    change = customer_pay - C_p;
+                                    printf("You bought item A for %.2f AED and you paid: %0.2f. Change due: %0.2f \n", C_p, customer_pay, change);
                                     if (C_n <= Min)
                                     {
                                         printf("ALERT: Item C is in low stock!\n");
                                     }
                                 }
-                                break;
+                                // break;
                             }
                             else
                             {
@@ -297,7 +317,7 @@ int main()
                     {
                         printf("Not confirmed\n");
                         // prog2 = false;
-                        break;
+                        // break;
                     }
 
                     // break;
@@ -334,6 +354,7 @@ int display_total_sale(float z)
     if (answer == 'y' || answer == 'Y')
     {
         z = 0;
+        printf("\n");
         printf("Total Sale Amount reset to zero.\n");
         return z;
     }
@@ -344,6 +365,7 @@ int display_total_sale(float z)
 }
 void display_item_avail(int a, int b, int c)
 {
+    printf("\n");
     printf("Item A: %d available\n", a);
     printf("Item B: %d available\n", b);
     printf("Item C: %d available\n", c);
