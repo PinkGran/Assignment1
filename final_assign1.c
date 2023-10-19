@@ -35,7 +35,6 @@ int main()
             if (pass != admin_password)
             {
                 printf("Incorrect admin password. Exiting Admin Mode.\n");
-                // prog1 = false;
             }
             else
             {
@@ -156,7 +155,7 @@ int main()
                     default:
                     {
                         printf("Invalid input\n");
-                        // prog2 = false;
+
                         break;
                     }
                     } // end of switch(sel)
@@ -277,7 +276,7 @@ int main()
                                         if (cancel == 'y' || cancel == 'Y')
                                         {
                                             printf("Purchase canceled\n");
-                                            // prog2 = false;
+
                                             break;
                                         }
                                         else if (cancel == 'n' || cancel == 'N')
