@@ -179,15 +179,33 @@ bool found_duplicate(int arr[], int length)
 }
 void flip_array(int arr[], int length)
 {
-    set_array(arr, SIZE);
-    puts("");
+    int first = 0;
+    int last = length - 1;
 
-    for (int i = 0; i < length; i++)
+    while (first < last)
     {
-        arr[i] = arr[--length];
+        // Swap the elements at the start and end positions
+        int temp = arr[first];
+        arr[first] = arr[last];
+        arr[last] = temp;
+
+        // Move the start position forward and the end position backward
+        first++;
+        last--;
     }
     for (int j = 0; j < length; j++)
     {
         printf("arr[%d]=%d\n", j, arr[j]);
     }
+    // set_array(arr, SIZE);
+    // puts("");
+
+    // for (int i = 0; i < length; i++)
+    // {
+    //     arr[i] = arr[--length];
+    // }
+    // for (int j = 0; j < length; j++)
+    // {
+    //     printf("arr[%d]=%d\n", j, arr[j]);
+    // }
 }
