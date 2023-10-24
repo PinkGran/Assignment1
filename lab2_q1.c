@@ -12,6 +12,7 @@ void insert_align(int arr[], int length, int pos, int value);
 void reshape(int arr[], int length, int arr2d[nRows][nCols]);
 void print_trans_matrix(int arr[], int arr2d[nRows][nCols]);
 bool found_duplicate(int arr[], int length);
+void flip_array(int arr[], int length);
 int main()
 {
     int arr[SIZE];
@@ -37,8 +38,11 @@ int main()
     print_trans_matrix(arr, arr2d);
 
     printf("\nChecking to see if there are repeating values in the array: \n");
-    answer = found_duplicate(arr, SIZE);
-    printf(answer);
+    // answer = found_duplicate(arr, SIZE);
+    // printf(answer);
+
+    printf("Reverse content of arr: \n");
+    flip_array(arr, SIZE);
 }
 
 // FUNCTION DEFINITIONS
@@ -172,4 +176,18 @@ bool found_duplicate(int arr[], int length)
         }
     }
     return false; // No duplicates found
+}
+void flip_array(int arr[], int length)
+{
+    set_array(arr, SIZE);
+    puts("");
+
+    for (int i = 0; i < length; i++)
+    {
+        arr[i] = arr[--length];
+    }
+    for (int j = 0; j < length; j++)
+    {
+        printf("arr[%d]=%d\n", j, arr[j]);
+    }
 }
