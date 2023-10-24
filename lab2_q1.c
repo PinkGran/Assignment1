@@ -10,11 +10,14 @@ void set_array(int arr[], int length);
 void rem_align(int arr[], int length, int pos);
 void insert_align(int arr[], int length, int pos, int value);
 void reshape(int arr[], int length, int arr2d[nRows][nCols]);
+void print_trans_matrix(int arr[], int arr2d[nRows][nCols]);
+bool found_duplicate(int arr[], int length);
 int main()
 {
     int arr[SIZE];
     int arr2d[nRows][nCols];
-    // Call to different functions
+    bool answer;
+
     print_array(arr, SIZE);
     printf("\n");
     print_matrix(arr2d, nRows);
@@ -23,10 +26,19 @@ int main()
     set_array(arr, SIZE); // sets the value of each array element to its index in the array
     printf("\nnew array after removing element 3: \n");
     rem_align(arr, SIZE, 3);
-    printf("\nnew array after adding the number 65 in position 5: \n");
+
+    printf("\nnew array after adding the number 64 in position 5: \n");
     insert_align(arr, SIZE, 5, 64);
+
     printf("\nnew array after copying 1D array to a 2D array: \n");
     reshape(arr, SIZE, arr2d);
+
+    printf("\nPrinting the values of arr2d column by column: \n");
+    print_trans_matrix(arr, arr2d);
+
+    printf("\nChecking to see if there are repeating values in the array: \n");
+    answer = found_duplicate(arr, SIZE);
+    printf(answer);
 }
 
 // FUNCTION DEFINITIONS
@@ -79,7 +91,9 @@ void rem_align(int arr[], int length, int pos)
 }
 void insert_align(int arr[], int length, int pos, int value)
 {
-    //      inserts the prameter value at the array
+    set_array(arr, SIZE);
+    puts("");
+    // inserts the prameter value at the array
     // index pos while moving down by one position the original array elements from index pos onwards,
     // see Fig 1.2. If the value of pos is not a valid array index, print a relevant message and exit the
     // function.
@@ -101,6 +115,8 @@ void reshape(int arr[], int length, int arr2d[nRows][nCols])
     //  If the length of arr does not equal “nRows*nCols”, print a relevant error message and exit the
     // function.
     //  Else, copy the elements of the 1-D array arr into arr2d, row by row.
+    set_array(arr, SIZE);
+    puts("");
     int product;
     product = nRows * nCols;
 
@@ -112,12 +128,11 @@ void reshape(int arr[], int length, int arr2d[nRows][nCols])
     else
     {
         int i = 0;
-        for (int j = 0; i < nRows; j++)
+        for (int j = 0; j < nRows; j++)
         {
             for (int k = 0; k < nCols; k++)
             {
-                arr2d[j][k] == arr[i];
-                i++;
+                arr2d[j][k] = arr[i++];
             }
         }
         for (int i = 0; i < nRows; i++)
@@ -127,6 +142,34 @@ void reshape(int arr[], int length, int arr2d[nRows][nCols])
                 printf("arr2d[%d][%d]=%d", i, j, arr2d[i][j]);
                 printf("\n");
             }
+            puts("");
         }
     }
+}
+void print_trans_matrix(int arr[], int arr2d[nRows][nCols])
+{
+    reshape(arr, SIZE, arr2d);
+    for (int i = 0; i < nCols; i++)
+    {
+        for (int j = 0; j < nRows; j++)
+        {
+            printf("arr2d[%d][%d]=%d ;;;", j, i, arr2d[j][i]);
+            // puts("");
+        }
+        puts("");
+    }
+}
+bool found_duplicate(int arr[], int length)
+{
+    for (int i = 0; i < length - 1; i++)
+    {
+        for (int j = i + 1; j < length; j++)
+        {
+            if (arr[i] == arr[j])
+            {
+                return true; // Found a duplicate
+            }
+        }
+    }
+    return false; // No duplicates found
 }
