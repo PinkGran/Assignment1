@@ -38,10 +38,14 @@ int main()
     print_trans_matrix(arr, arr2d);
 
     printf("\nChecking to see if there are repeating values in the array: \n");
-    // answer = found_duplicate(arr, SIZE);
-    // printf(answer);
+    // found_duplicate(arr, SIZE);
+    answer = found_duplicate(arr, SIZE);
+    if (answer == 0)
+        printf("False\n");
+    else
+        printf("True\n");
 
-    printf("Reverse content of arr: \n");
+    printf("\nReverse content of arr: \n");
     flip_array(arr, SIZE);
 }
 
@@ -66,7 +70,7 @@ void set_array(int arr[], int length) //: sets the value of each array element t
     int i;
     for (i = 0; i < length; i++)
     {
-        arr[i] = i;
+        arr[i] = i; // the value of each array is equal to its index number
         printf("arr[%d]=%d\n", i, arr[i]);
     }
 }
@@ -76,21 +80,21 @@ void rem_align(int arr[], int length, int pos)
     // its following array elements one index up in the array, see Fig 1.1. If the value of “pos” is not a valid
     // array index, print a relevant message and exit the function.
     int i;
-    if (pos > length || pos < 0)
+    if (pos > length || pos < 0) // if pos is out of bounds
     {
         printf("Invalid position\n");
         return;
     }
 
-    for (i = pos; i < length - 1; i++)
+    for (i = pos; i < length - 1; i++) // if pos is not out of bounds
     {
-        arr[i] = arr[i + 1];
+        arr[i] = arr[i + 1]; // moving the values of all the arrays after pos 1 step back since we are removing one array from the list
     }
-    arr[length - 1] = 0;
+    arr[length - 1] = 0; // putting the last array as zero
 
     for (i = 0; i < length - 1; i++)
     {
-        printf("arr[%d]=%d\n", i, arr[i]);
+        printf("arr[%d]=%d\n", i, arr[i]); // printing out the new array
     }
 }
 void insert_align(int arr[], int length, int pos, int value)
@@ -101,16 +105,21 @@ void insert_align(int arr[], int length, int pos, int value)
     // index pos while moving down by one position the original array elements from index pos onwards,
     // see Fig 1.2. If the value of pos is not a valid array index, print a relevant message and exit the
     // function.
+    if (pos > length || pos < 0) // if pos is out of bounds
+    {
+        printf("Invalid position\n");
+        return;
+    }
     length++;
     int i;
     for (i = length - 1; i >= pos; i--)
     {
-        arr[i] = arr[i - 1];
+        arr[i] = arr[i - 1]; // moving the values of the array after pos by 1 step
     }
-    arr[pos - 1] = value;
+    arr[pos - 1] = value; // changing the value of the array at position to the specified value
     for (i = 0; i < length; i++)
     {
-        printf("arr[%d]=%d\n", i, arr[i]);
+        printf("arr[%d]=%d\n", i, arr[i]); // printing out the new array
     }
 }
 void reshape(int arr[], int length, int arr2d[nRows][nCols])
@@ -136,14 +145,14 @@ void reshape(int arr[], int length, int arr2d[nRows][nCols])
         {
             for (int k = 0; k < nCols; k++)
             {
-                arr2d[j][k] = arr[i++];
+                arr2d[j][k] = arr[i++]; // copying the elements of 1D array to 2D array
             }
         }
         for (int i = 0; i < nRows; i++)
         {
             for (int j = 0; j < nCols; j++)
             {
-                printf("arr2d[%d][%d]=%d", i, j, arr2d[i][j]);
+                printf("arr2d[%d][%d]=%d", i, j, arr2d[i][j]); // printing out the new 2D array
                 printf("\n");
             }
             puts("");
@@ -153,12 +162,11 @@ void reshape(int arr[], int length, int arr2d[nRows][nCols])
 void print_trans_matrix(int arr[], int arr2d[nRows][nCols])
 {
     reshape(arr, SIZE, arr2d);
-    for (int i = 0; i < nCols; i++)
+    for (int i = 0; i < nCols; i++) // goes thru columns first
     {
-        for (int j = 0; j < nRows; j++)
+        for (int j = 0; j < nRows; j++) // then goes thru the rows
         {
             printf("arr2d[%d][%d]=%d ;;;", j, i, arr2d[j][i]);
-            // puts("");
         }
         puts("");
     }
@@ -195,7 +203,7 @@ void flip_array(int arr[], int length)
     }
     for (int j = 0; j < length; j++)
     {
-        printf("arr[%d]=%d\n", j, arr[j]);
+        printf("arr[%d]=%d\n", j, arr[j]); // printing out the new 1D array
     }
     // set_array(arr, SIZE);
     // puts("");
