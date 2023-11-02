@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-
 #define MAX_SUBJECTS 3
 #define MAX_STUDENTS 4
 
@@ -16,7 +15,7 @@ typedef struct
 
 void enrol(record students[], int studentIndex);
 void searchUpdate(record students[], int ns);
-// void topStudents(StudentRecord students[], int numStudents);
+void topStudents(record students[], int ns);
 void printRecord(record student);
 
 int main()
@@ -52,7 +51,7 @@ int main()
             searchUpdate(students, numStudents);
             break;
         case 3:
-            // topStudents();
+            topStudents(students, MAX_STUDENTS);
             break;
         case 4:
             printf("Exiting program.\n");
@@ -98,7 +97,6 @@ void enrol(record students[], int studentIndex)
     printf("Their aggregate is :%d\n", aggregate);
     if (totalMarks >= 0)
     {
-        // students[studentIndex].aggregateMarks = aggregate;
         if (aggregate >= 85)
         {
             strcpy(students[studentIndex].grade, "HD");
@@ -309,4 +307,23 @@ void printRecord(record student)
     printf("Last Name: %s\n", student.lastName);
     printf("Aggregate Marks: %d\n", student.aggregateMarks);
     printf("Grade: %s\n", student.grade);
+}
+void topStudents(record students[], int ns)
+{
+    printf("The top student is: \n");
+    int highestaggregate = 0;
+    for (int i = 0; i < ns; i++)
+    {
+        if (students[i].aggregateMarks > highestaggregate)
+        {
+            highestaggregate = students[i].aggregateMarks;
+        }
+    }
+    for (int j = 0; j < ns; j++)
+    {
+        if (students[j].aggregateMarks == highestaggregate)
+        {
+            printRecord(students[j]);
+        }
+    }
 }
