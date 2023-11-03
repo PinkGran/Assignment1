@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #define MAX_SUBJECTS 3
 #define MAX_STUDENTS 4
 
@@ -10,7 +11,7 @@ typedef struct
     int studentID;
     float subjectMarks[MAX_SUBJECTS];
     int aggregateMarks;
-    char grade[10];
+    char grade[15];
 } record;
 
 void enrol(record students[], int studentIndex);
@@ -51,7 +52,7 @@ int main()
             searchUpdate(students, numStudents);
             break;
         case 3:
-            topStudents(students, MAX_STUDENTS);
+            topStudents(students, numStudents);
             break;
         case 4:
             printf("Exiting program.\n");
@@ -69,20 +70,33 @@ void enrol(record students[], int studentIndex)
     printf("\nEnrolling student %d:\n", studentIndex + 1);
 
     printf("Enter first name: ");
-    scanf("%s", students[studentIndex].firstName);
+    scanf(" %s", students[studentIndex].firstName);
 
     printf("Enter last name: ");
-    scanf("%s", students[studentIndex].lastName);
+    scanf(" %s", students[studentIndex].lastName);
 
     printf("Enter student ID: ");
     scanf("%d", &students[studentIndex].studentID);
 
     for (int i = 0; i < MAX_SUBJECTS; i++)
     {
-        printf("Enter mark for Subject %d: ", i);
+        printf("Enter mark for Subject %d (type -1 if you do not want to enter the mark): ", i);
         scanf("%f", &students[studentIndex].subjectMarks[i]);
     }
-
+    // int undefinedmark = 0;
+    for (int i = 0; i < MAX_SUBJECTS; i++)
+    {
+        if (students[studentIndex].subjectMarks[i] == -1)
+        {
+            // undefinedmark = -1;
+            // break;
+            strcpy(students[studentIndex].grade, "undefined");
+            printf("Their grade is %s\n", students[studentIndex].grade);
+            students[studentIndex].aggregateMarks = -1;
+            printf("Their aggregate is :%d\n", students[studentIndex].aggregateMarks);
+            return;
+        }
+    }
     float totalMarks = 0;
     int aggregate = 0;
     for (int i = 0; i < MAX_SUBJECTS; i++)
@@ -134,7 +148,7 @@ void searchUpdate(record students[], int ns)
     scanf(" %d", &userinput);
     switch (userinput)
     {
-    case 1:
+    case 1: // when user inputs student id
     {
         int studentid;
         printf("\nEnter Student ID: ");
@@ -185,7 +199,6 @@ void searchUpdate(record students[], int ns)
 
                     if (totalMarks >= 0)
                     {
-                        // students[studentIndex].aggregateMarks = aggregate;
                         if (aggregate >= 85)
                         {
                             strcpy(students[i].grade, "HD");
@@ -210,17 +223,33 @@ void searchUpdate(record students[], int ns)
                     }
                 }
             } // end of if
+            else
+            {
+                printf("Unfound\n");
+            }
         }
         break;
-    } // end of case 1
-    case 2:
+    }       // end of case 1
+    case 2: // when user inputs last name
     {
         char userlastname[20];
         printf("\nEnter the user's last name: ");
         scanf(" %s", &userlastname);
+        for (int l = 0; l < strlen(userlastname); l++) // changing all the characters of the user input to lower case
+        {
+            userlastname[l] = tolower(userlastname[l]);
+        }
+        printf("%s", userlastname);
+        // changing all the last names in records to lower case to compare with the user's input
         for (int i = 0; i < ns; i++)
         {
-            if (strcmp(students[i].lastName, userlastname) == 0)
+            char lowercaselastname[35];
+            strcpy(lowercaselastname, students[i].lastName);
+            for (int l = 0; l < strlen(lowercaselastname); l++) // changing all the characters of the last name to lower case
+            {
+                lowercaselastname[l] = tolower(lowercaselastname[l]);
+            }
+            if (strcmp(lowercaselastname, userlastname) == 0)
             {
                 printRecord(students[i]);
                 char update;
@@ -288,8 +317,11 @@ void searchUpdate(record students[], int ns)
                         printf("Their grade is %s\n", students[i].grade);
                     }
                 }
-
             } // end of if
+            else
+            {
+                printf("Unfound\n");
+            }
         }
         break;
     } // end of case 2
