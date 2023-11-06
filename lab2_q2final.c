@@ -28,7 +28,7 @@ int main()
     do
     {
         printf("\nMenu:\n");
-        printf("Enrol a student, Enter 1:\n");
+        printf("enrol a student, Enter 1:\n");
         printf("for search update, Enter 2: \n");
         printf("For topStudents, Enter 3: \n");
         printf("To Exit, enter 4\n");
