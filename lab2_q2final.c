@@ -6,13 +6,13 @@
 
 typedef struct
 {
-    char firstName[50];
+    char firstName[50]; // initialising all the variables needed for this struct
     char lastName[50];
     int studentID;
     float subjectMarks[MAX_SUBJECTS];
     int aggregateMarks;
     char grade[15];
-} record;
+} record; // name of the struct
 
 void enrol(record students[], int studentIndex);
 void searchUpdate(record students[], int ns);
@@ -21,41 +21,41 @@ void printRecord(record student);
 
 int main()
 {
-    record students[MAX_STUDENTS];
-    int numStudents = 0;
+    record students[MAX_STUDENTS]; // creating a variable using the struct defined earlier
+    int numStudents = 0;           // to hold how many students the user has enrolled in so far
     int choice;
 
-    do
+    do // Display menu options
     {
         printf("\nMenu:\n");
-        printf("enrol a student, Enter 1:\n");
-        printf("for search update, Enter 2: \n");
+        printf("Enrol a student, Enter 1:\n");
+        printf("For search update, Enter 2: \n");
         printf("For topStudents, Enter 3: \n");
         printf("To Exit, enter 4\n");
-        scanf("%d", &choice);
+        scanf("%d", &choice); // Read user's choice
 
         switch (choice)
         {
         case 1:
-            if (numStudents < MAX_STUDENTS)
+            if (numStudents < MAX_STUDENTS) // checking to make sure user does not input more students than MAX_STUDENTS
             {
                 enrol(students, numStudents);
-                numStudents++;
+                numStudents++; // increementing this variable after a student is enrolled
                 printf("Student enrolled successfully.\n");
             }
             else
             {
-                printf("Maximum number of students reached.\n");
+                printf("Maximum number of students reached.\n"); // if number of students is greater than MAX_STUDENTS
             }
             break;
         case 2:
-            searchUpdate(students, numStudents);
+            searchUpdate(students, numStudents); // if user wants to search up a student
             break;
         case 3:
-            topStudents(students, numStudents);
+            topStudents(students, numStudents); // to find out top student
             break;
         case 4:
-            printf("Exiting program.\n");
+            printf("Exiting program.\n"); // exit program
             break;
         default:
             printf("Invalid choice. Please try again.\n");
@@ -65,18 +65,17 @@ int main()
     return 0;
 }
 
-void enrol(record students[], int studentIndex)
+void enrol(record students[], int studentIndex) // Function to enroll a student
 {
     printf("\nEnrolling student %d:\n", studentIndex + 1);
 
     printf("Enter first name: ");
-    scanf(" %s", students[studentIndex].firstName);
+    scanf(" %s", students[studentIndex].firstName); // storing user input to firstname
 
     printf("Enter last name: ");
-    scanf(" %s", students[studentIndex].lastName);
+    scanf(" %s", students[studentIndex].lastName); // storing user input to lastname
 
     printf("Enter student ID: ");
-    // scanf("%d", &students[studentIndex].studentID);
     while (scanf("%d", &students[studentIndex].studentID) != 1) // to make sure the user inputs a number
     {
         printf("\nPlease enter a valid student ID: ");
@@ -86,24 +85,20 @@ void enrol(record students[], int studentIndex)
     for (int i = 0; i < MAX_SUBJECTS; i++)
     {
         printf("Enter mark for Subject %d (type -1 if you do not want to enter the mark): ", i);
-        // scanf("%f", &students[studentIndex].subjectMarks[i]);
         while (scanf(" %f", &students[studentIndex].subjectMarks[i]) != 1) // to make sure the user inputs a number
         {
             printf("\nPlease enter a number(type -1 if you do not want to enter the mark): ");
             fflush(stdin); // Clear input buffer
         }
     }
-    // int undefinedmark = 0;
     for (int i = 0; i < MAX_SUBJECTS; i++)
     {
         if (students[studentIndex].subjectMarks[i] == -1)
         {
-            // undefinedmark = -1;
-            // break;
-            strcpy(students[studentIndex].grade, "undefined");
+            strcpy(students[studentIndex].grade, "undefined"); // display "undefined" if user input -1
             printf("Their grade is %s\n", students[studentIndex].grade);
             students[studentIndex].aggregateMarks = -1;
-            printf("Their aggregate is :%d\n", students[studentIndex].aggregateMarks);
+            printf("Their aggregate is :%d\n", students[studentIndex].aggregateMarks); // display aggergate as -1 if user input -1
             return;
         }
     }
@@ -116,10 +111,10 @@ void enrol(record students[], int studentIndex)
             totalMarks = totalMarks + students[studentIndex].subjectMarks[i];
         }
     }
-    aggregate = (totalMarks / 300) * 100;
+    aggregate = (totalMarks / 300) * 100; // finding aggregate and converting to percentage
     students[studentIndex].aggregateMarks = aggregate;
     printf("Their aggregate is :%d\n", aggregate);
-    if (totalMarks >= 0)
+    if (totalMarks >= 0) // assigning the grade for the aggregate marks
     {
         if (aggregate >= 85)
         {
@@ -150,7 +145,7 @@ void enrol(record students[], int studentIndex)
     }
 }
 
-void searchUpdate(record students[], int ns)
+void searchUpdate(record students[], int ns) // Function to search for a student
 {
     int userinput;
     printf("\n SearchUpdate\n");
@@ -163,13 +158,13 @@ void searchUpdate(record students[], int ns)
         int studentid;
         printf("\nEnter Student ID: ");
         scanf(" %d", &studentid);
-        for (int i = 0; i < ns; i++)
+        for (int i = 0; i < ns; i++) // to go through each studentID to find if there is a match
         {
             if (students[i].studentID == studentid)
             {
-                printRecord(students[i]);
+                printRecord(students[i]); // if match was found, print all the details of the student
                 char update;
-                printf("Do you want to update any of the attributes? (Y/N): ");
+                printf("Do you want to update any of the attributes? (Y/N): "); // asking if the user wants to change any attribute
                 scanf(" %c", &update);
 
                 if (update == 'Y' || update == 'y')
@@ -184,7 +179,7 @@ void searchUpdate(record students[], int ns)
                     scanf("%d", &students[i].studentID);
                 }
                 char updategrades;
-                printf("Do you want to update subject grades? (Y/N): ");
+                printf("Do you want to update subject grades? (Y/N): "); // asking if the user wants to update the grade of any of the subjects
                 scanf(" %c", &updategrades);
                 if (updategrades == 'Y' || updategrades == 'y')
                 {
@@ -245,13 +240,13 @@ void searchUpdate(record students[], int ns)
         char userlastname[20];
         printf("\nEnter the user's last name: ");
         scanf(" %s", &userlastname);
-        for (int l = 0; l < strlen(userlastname); l++) // changing all the characters of the user input to lower case
+        for (int l = 0; l < strlen(userlastname); l++) // changing all the last names in records to lower case to compare with the user's input
         {
             userlastname[l] = tolower(userlastname[l]);
         }
         printf("%s", userlastname);
-        // changing all the last names in records to lower case to compare with the user's input
-        for (int i = 0; i < ns; i++)
+
+        for (int i = 0; i < ns; i++) // to go through each last name to find if there is a match
         {
             char lowercaselastname[35];
             strcpy(lowercaselastname, students[i].lastName);
@@ -263,7 +258,7 @@ void searchUpdate(record students[], int ns)
             {
                 printRecord(students[i]);
                 char update;
-                printf("Do you want to update any of the attributes? (Y/N): ");
+                printf("Do you want to update any of the attributes? (Y/N): "); // asking if the user wants to change any attribute
                 scanf(" %c", &update);
 
                 if (update == 'Y' || update == 'y')
@@ -278,7 +273,7 @@ void searchUpdate(record students[], int ns)
                     scanf("%d", &students[i].studentID);
                 }
                 char updategrades;
-                printf("Do you want to update subject grades? (Y/N): ");
+                printf("Do you want to update subject grades? (Y/N): "); // asking if the user wants to update the grade of any of the subjects
                 scanf(" %c", &updategrades);
                 if (updategrades == 'Y' || updategrades == 'y')
                 {
@@ -303,7 +298,6 @@ void searchUpdate(record students[], int ns)
 
                     if (totalMarks >= 0)
                     {
-                        // students[studentIndex].aggregateMarks = aggregate;
                         if (aggregate >= 85)
                         {
                             strcpy(students[i].grade, "HD");
@@ -342,7 +336,7 @@ void searchUpdate(record students[], int ns)
     } // end of switch
 }
 
-void printRecord(record student)
+void printRecord(record student) // function to print out all the details of the student
 {
     printf("\nStudent ID: %d\n", student.studentID);
     printf("First Name: %s\n", student.firstName);
@@ -350,20 +344,20 @@ void printRecord(record student)
     printf("Aggregate Marks: %d\n", student.aggregateMarks);
     printf("Grade: %s\n", student.grade);
 }
-void topStudents(record students[], int ns)
+void topStudents(record students[], int ns) // Function to print the top student
 {
     printf("The top student is: \n");
     int highestaggregate = 0;
     for (int i = 0; i < ns; i++)
     {
-        if (students[i].aggregateMarks > highestaggregate)
+        if (students[i].aggregateMarks > highestaggregate) // to find out the highest aggregate
         {
             highestaggregate = students[i].aggregateMarks;
         }
     }
     for (int j = 0; j < ns; j++)
     {
-        if (students[j].aggregateMarks == highestaggregate)
+        if (students[j].aggregateMarks == highestaggregate) // to find out which student got the highest aggregate
         {
             printRecord(students[j]);
         }
