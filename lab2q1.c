@@ -38,7 +38,6 @@ int main()
     print_trans_matrix(arr, arr2d);
 
     printf("\nChecking to see if there are repeating values in the array: \n");
-    // found_duplicate(arr, SIZE);
     answer = found_duplicate(arr, SIZE);
     if (answer == 0)
         printf("False\n");
@@ -76,9 +75,6 @@ void set_array(int arr[], int length) //: sets the value of each array element t
 }
 void rem_align(int arr[], int length, int pos)
 {
-    //: removes the array element at index pos by moving
-    // its following array elements one index up in the array, see Fig 1.1. If the value of “pos” is not a valid
-    // array index, print a relevant message and exit the function.
     int i;
     if (pos > length || pos < 0) // if pos is out of bounds
     {
