@@ -19,8 +19,8 @@ int main(void)
     cout << "After using update_scale: " << endl;
     update_scale(a, b);
 
-    // print_real(a, 7, 3);
-    // print_real(b, 7, 3);
+    print_real(a, 7, 3);
+    print_real(b, 7, 3);
 }
 
 /* complete the body of the function */
