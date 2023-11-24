@@ -35,6 +35,6 @@ void update_scale(T &m1, T &m2, T m3)
     T temp_m1 = m1;           // Store original value of m1 for the calculations
     m1 = (m1 + m2) * m3;      // updating m1 by adding m1 and m2 and multiplying sum by m3
     m2 = (temp_m1 - m2) * m3; // updating m2 by subtracting original values of m1 and m2 and multiplying the difference by m3
-    cout << "new m1 is:" << m1 << endl;
-    cout << "new m2 is:" << m2 << endl;
+    cout << "new a is:" << m1 << endl;
+    cout << "new b is:" << m2 << endl;
 }
